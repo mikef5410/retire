@@ -1,3 +1,4 @@
+
 ;;;; retire.lisp
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (ql:quickload '(:with-user-abort :adopt ) :silent t))
@@ -11,20 +12,17 @@
 ;;;; Errors ------------------------------------------------------
 (define-condition user-error (error) ())
 
-(defvar retireDate (encode-universal-time 0 0 17 1 4 2026 7))
+(defparameter *retireDate* (encode-universal-time 0 0 17 1 4 2026 7))
 
 (defun calcRetire ()
-  (let* ( (currentTime 0)
-          (interval 0 )
+  (let* ( (currentTime (get-universal-time))
+          (interval  (- *retireDate* currentTime)  )
           (days 0)
           (hours 0)
           (workdays 0)
           (years 0)
           (sec 0)
-          (to-day 0))
-    (setf currentTime (get-universal-time))
-    (setf interval  (- retireDate currentTime) )
-    (setf to-day  (nth 6 (multiple-value-list (decode-universal-time currentTime))))
+          (to-day  (nth 6 (multiple-value-list (decode-universal-time currentTime))) ))
     (when (> interval 0) 
       (progn
         (multiple-value-setq (days hours) (floor interval (* 24 (* 60 60))))
