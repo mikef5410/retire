@@ -62,7 +62,7 @@
         (unless *short*
           (format t "Retire in ~d days ~d hours! (~d work days)~%" days hours workdays))
         (when *short*
-          (format t "~d/~d (~d)~%" days hours workdays))
+          (format t "~dd/~dh (~dwd)~%" days hours workdays))
         (values days hours workdays)))))
 
 ;;;; Run ---------------------------------------------------------
