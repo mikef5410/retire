@@ -37,6 +37,7 @@
   (calcRetire))
 
 ;;;; User Interface ----------------------------------------------
+#+sbcl
 (defmacro exit-on-ctrl-c (&body body)
   `(handler-case (with-user-abort:with-user-abort (progn ,@body))
      (with-user-abort:user-abort () (sb-ext:exit :code 130))))
@@ -47,7 +48,7 @@
 ;;     ...))
 
 (defun toplevel ()
-  (sb-ext:disable-debugger)
+  #+sbcl  (sb-ext:disable-debugger)
   ;; (exit-on-ctrl-c
   ;;   (multiple-value-bind (arguments options) (adopt:parse-options-or-exit *ui*)
   ;;     … ; Handle options.
